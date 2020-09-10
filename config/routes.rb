@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   end
   
   resources :doses, only: [:destroy]
+
+  get '/search', to: "cocktails#search", as: :search
 end

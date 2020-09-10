@@ -1,6 +1,6 @@
 class CocktailsController < ApplicationController
     def index
-      @cocktails = Cocktail.all
+      @cocktails = Cocktail.search(params[:search])
     end 
 
     def show
@@ -21,9 +21,18 @@ class CocktailsController < ApplicationController
       redirect_to cocktails_path
     end
 
+    def search  
+      if params[:search].blank?  
+        redirect_to(root_path, alert: "Empty field!") and return  
+      else  
+        @parameter = params[:search].downcase  
+        @results = Cocktail.all.where("lower(name) LIKE CONCAT('%',:search,'%')", search: @parameter)  
+      end 
+    end
+
     private
 
     def cocktail_params 
-      params.require(:cocktail).permit(:name)
+      params.require(:cocktail).permit(:name, :search)
     end
 end

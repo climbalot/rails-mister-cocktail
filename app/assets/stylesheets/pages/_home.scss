@@ -1,1 +1,12 @@
 // Specific CSS for your home-page
+.banner {
+    background-image: url('https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1349&q=80');
+    height: 400px;
+    background-size: cover;
+    top: 40px;
+}
+
+.transparent {
+    background-color: transparent;
+    border: none;
+}

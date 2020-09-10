@@ -1,0 +1,6 @@
+<div class="container">
+    <h3>Search Result</h3>  
+        <% @results.each do |result| %>  
+            <%= link_to result.name, cocktail_path(result) %><br>  
+        <% end %>
+</div>
