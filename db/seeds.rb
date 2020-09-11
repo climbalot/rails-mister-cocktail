@@ -9,7 +9,18 @@ require 'open-uri'
 
 # clean db
 Ingredient.destroy_all
+p 'Deleted all ingredients!'
 Cocktail.destroy_all
+p 'Deleted all cocktails!'
+
+ingredients_url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
+
+ingredients = JSON.parse(open(ingredients_url).read)
+
+ingredients['drinks'].each do |data|
+  Ingredient.create(name: data['strIngredient1'])
+  p 'Created ingredient!'
+end
 
 cocktails_url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail'
 
@@ -24,13 +35,10 @@ cocktails['drinks'][0..19].each do |data|
     cocktail = Cocktail.new(name: cocktail_name)
     cocktail.photo.attach(io: image_file, filename: 'cocktail.png', content_type: 'image/png')
     cocktail.save
+    p 'Created cocktail!'
+    Dose.create(description: data['strMeasure1'], cocktail_id: cocktail.id, ingredient_id: Ingredient.find_by(name: "#{data['strIngredient1']}").id) unless Ingredient.find_by(name: "#{data['strIngredient1']}") == nil
+    p 'Created dose!'
+    Dose.create(description: data['strMeasure2'], cocktail_id: cocktail.id, ingredient_id: Ingredient.find_by(name: "#{data['strIngredient2']}").id) unless Ingredient.find_by(name: "#{data['strIngredient2']}") == nil
+    p 'Created dose!'
   end
-end
-
-ingredients_url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
-
-ingredients = JSON.parse(open(ingredients_url).read)
-
-ingredients['drinks'].each do |data|
-  Ingredient.create(name: data['strIngredient1'])
 end

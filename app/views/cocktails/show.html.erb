@@ -7,7 +7,8 @@
         </div>
       </div>
       <div class="col">
-        <p class="font-weight-bold"><%= @cocktail.name %></p>
+        <h2 class="font-weight-bold"><%= @cocktail.name %></h2>
+        <h3>Ingredients:</h3>
 
         <% if @doses %>
           <% @doses.each do |dose| %>

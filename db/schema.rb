@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_081216) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image_url"
     t.text "review"
   end
 
