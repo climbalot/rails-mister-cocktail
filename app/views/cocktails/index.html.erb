@@ -1,15 +1,19 @@
 <div class="banner">
 </div>
 
-<div class="container">
+<div class="container index">
+    <h2 class="mt-4 text-center">Most Popular Cocktails</h2>
     <div class="row row-cols-4">
         <% @cocktails.each do |cocktail| %>
             <div class="card col my-4 transparent" style="width: 18rem;">
-            <img src="<%= cocktail.image_url %>" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title"><%= cocktail.name %></h5>
-                <%= link_to 'Details', cocktail_path(cocktail) %>
-            </div>
+                <div class="card-category" style="background-image: url('<%= cl_image_path cocktail.photo.key, height: 300, width: 400, crop: :fill %>')">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><%= cocktail.name %></h5>
+                    <div class="card-body-btn">
+                        <%= link_to 'Details', cocktail_path(cocktail), class: "btn"%>
+                    </div>
+                </div>
             </div>
         <% end %>
     </div>

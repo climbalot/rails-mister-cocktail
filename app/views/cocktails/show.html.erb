@@ -1,17 +1,26 @@
-<div class="container">
-  <h1 class="text-center">Here's your cocktail:</h1>
-  <br>
-  <div class="text-center">
-    <img src="<%= @cocktail.image_url %>" alt="<%= @cocktail.name %>" class="rounded" id="cocktail-image">
+<div class="container show">
+  <h2 class="text-center">Here's your cocktail:</h2>
+  <div class="content-wrapper mt-4">
+    <div class="row row-cols-2 align-items-center">
+      <div class="col">
+        <div class="card-category text-center" style="background-image: url('<%= cl_image_path @cocktail.photo.key %>')">
+        </div>
+      </div>
+      <div class="col">
+        <p class="font-weight-bold"><%= @cocktail.name %></p>
+
+        <% @doses.each do |dose| %>
+          <p>
+            <%= dose.ingredient.name %> - <%= dose.description %>
+            <%= link_to '<i class="fas fa-trash"></i>'.html_safe, dose_path(dose), class: "btn ml-2", id: "standard-btn", method: :delete, data: { confirm: "Are you sure?" } %>
+          </p>
+        <% end %>
+
+        <%= link_to 'Add a new Dose', new_cocktail_dose_path(@cocktail), class: "btn", id: "standard-btn" %>
+        <div class="mt-2">
+          <%= link_to 'Back', cocktails_path, class: "btn", id: "standard-btn" %>
+        </div>
+      </div>
+    </div>
   </div>
-  <p class="text-center font-weight-bold"><%= @cocktail.name %></p>
-
-  <% @doses.each do |dose| %>
-    <p class="text-center">
-      <%= Ingredient.find(dose.ingredient_id).name %> - <%= dose.description %>
-      <%= link_to 'Delete', dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } %>
-    </p>
-  <% end %>
-
-  <%= link_to 'Add a new Dose', new_cocktail_dose_path(@cocktail) %>
 </div>

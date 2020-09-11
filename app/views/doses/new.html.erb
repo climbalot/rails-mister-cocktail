@@ -1,7 +1,12 @@
-<h1><%= @cocktail.name %></h1>
+<div class="container">
+  <h2><%= @cocktail.name %></h2>
 
-<%= simple_form_for [@cocktail, @dose] do |f| %>
-  <%= f.association :ingredient %>
-  <%= f.input :description %>
-  <%= f.button :submit %>
-<% end %>
+  <%= simple_form_for [@cocktail, @dose] do |f| %>
+    <%= f.association :ingredient %>
+    <%= f.input :description %>
+    <%= f.button :submit, class: 'btn', id: 'standard-btn' %>
+    <%= link_to 'Back', cocktail_path(@cocktail), class: 'btn', id: 'standard-btn' %>
+  <% end %>
+</div>
+
+

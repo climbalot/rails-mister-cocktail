@@ -20,7 +20,10 @@ cocktails['drinks'][0..19].each do |data|
   cocktail_indiv_url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{cocktail_name}"
   cocktail_info = JSON.parse(open(cocktail_indiv_url).read)
   cocktail_info['drinks'].each do |data|
-    Cocktail.create(name: cocktail_name, image_url: data['strDrinkThumb'])
+    image_file = URI.open(data['strDrinkThumb'])
+    cocktail = Cocktail.new(name: cocktail_name)
+    cocktail.photo.attach(io: image_file, filename: 'cocktail.png', content_type: 'image/png')
+    cocktail.save
   end
 end
 
