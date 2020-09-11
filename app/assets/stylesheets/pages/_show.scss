@@ -7,3 +7,38 @@
 .show p {
     color:white;
 }
+
+// Reviews
+
+#user-reviews {
+    width: 70%;
+    margin: auto;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-style: none;
+    padding: 8px;
+}
+
+h3 {
+    color: white;
+}
+
+p {
+    color: #black;
+}
+
+blockquote {
+    margin: 0;
+    width: fit-content;
+}
+
+blockquote p {
+    padding: 15px;
+    background: #eee;
+    border-radius: 5px;
+}
+
+blockquote footer {
+    color: #fcdab7;
+}

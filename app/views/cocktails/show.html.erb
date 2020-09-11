@@ -9,18 +9,53 @@
       <div class="col">
         <p class="font-weight-bold"><%= @cocktail.name %></p>
 
-        <% @doses.each do |dose| %>
-          <p>
-            <%= dose.ingredient.name %> - <%= dose.description %>
-            <%= link_to '<i class="fas fa-trash"></i>'.html_safe, dose_path(dose), class: "btn ml-2", id: "standard-btn", method: :delete, data: { confirm: "Are you sure?" } %>
-          </p>
+        <% if @doses %>
+          <% @doses.each do |dose| %>
+            <p>
+              <%= dose.ingredient.name %> - <%= dose.description %>
+              <%= link_to '<i class="fas fa-trash"></i>'.html_safe, dose_path(dose), class: "btn ml-2", id: "standard-btn", method: :delete, data: { confirm: "Are you sure?" } %>
+            </p>
+          <% end %>
         <% end %>
 
-        <%= link_to 'Add a new Dose', new_cocktail_dose_path(@cocktail), class: "btn", id: "standard-btn" %>
+        <%= simple_form_for [@cocktail, @dose] do |f| %>
+          <%= f.association :ingredient %>
+          <%= f.input :description %>
+          <%= f.button :submit, 'Add a Dose', class: 'btn', id: 'standard-btn' %>
+        <% end %>
+
         <div class="mt-2">
           <%= link_to 'Back', cocktails_path, class: "btn", id: "standard-btn" %>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="container review mt-4">
+  <h2>Reviews</h2>
+  <%= simple_form_for [@cocktail, @review] do |f| %>
+          <%= f.input :name %>
+          <%= f.input :content %>
+          <%= f.button :submit, 'Leave a Review', class: 'btn', id: 'standard-btn' %>
+        <% end %>
+  <h3 class="text-center mt-4">See what others have to say!</h3>
+  <div id="user-reviews">
+    <% if @reviews.empty? %>
+      <blockquote class="mb-2">
+        <p>Oh no! There are no reviews for this cocktail yet!</p>
+        <footer>—<cite>A Sad Bartender</cite></footer>
+      </blockquote>
+    <% else %>
+      <% @reviews.each do |review| %>
+        <div>
+          <blockquote class="mb-2">
+              <p><%= review.content %></p>
+              <footer>—<cite><%= review.name %></cite></footer>
+          </blockquote>
+          <hr>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

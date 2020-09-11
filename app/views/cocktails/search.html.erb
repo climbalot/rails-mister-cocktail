@@ -1,6 +1,15 @@
-<div class="container">
-    <h3>Search Result</h3>  
-        <% @results.each do |result| %>  
-            <%= link_to result.name, cocktail_path(result) %><br>  
+<div class="container search">
+    <h2>Search Result</h2>  
+        <% if @results.empty? %>
+            <p>Sorry, we can't find the cocktail you're looking for.</p>
+        <% else %>
+            <% @results.each do |result| %>
+                <div class="d-flex align-items-center">
+                    <%= cl_image_tag result.photo.key, height: 150, width: 150 %>
+                    <div class="ml-2">
+                        <%= link_to result.name, cocktail_path(result) %><br> 
+                    </div> 
+                </div>
+            <% end %>
         <% end %>
 </div>

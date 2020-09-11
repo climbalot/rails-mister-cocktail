@@ -1,7 +1,7 @@
 <div class="banner">
 </div>
 
-<div class="container index">
+<div data-aos="fade-up" class="container index">
     <h2 class="mt-4 text-center">Most Popular Cocktails</h2>
     <div class="row row-cols-4">
         <% @cocktails.each do |cocktail| %>
@@ -18,3 +18,7 @@
         <% end %>
     </div>
 </div>
+
+<script>
+  AOS.init();
+</script>

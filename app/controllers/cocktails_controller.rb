@@ -5,9 +5,16 @@ class CocktailsController < ApplicationController
 
     def show
       @cocktail = Cocktail.find(params[:id])
+      @dose = Dose.new
       @doses = @cocktail.dose_ids.map do |id|
         Dose.find(id)
       end
+
+      # Reviews
+      @reviews = @cocktail.review_ids.map do |id|
+        Review.find(id)
+      end
+      @review = Review.new
     end 
 
     def new
@@ -26,7 +33,7 @@ class CocktailsController < ApplicationController
         redirect_to(root_path, alert: "Empty field!") and return  
       else  
         @parameter = params[:search].downcase  
-        @results = Cocktail.all.where("lower(name) LIKE CONCAT('%',:search,'%')", search: @parameter)  
+        @results = Cocktail.all.where("lower(name) LIKE CONCAT('%',:search,'%')", search: @parameter)
       end 
     end
 
